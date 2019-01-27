@@ -1,0 +1,103 @@
+import random
+import time
+import sys
+
+class Warrior:
+    def __init__(self, name, health, wdamage):
+        self.warrior = name
+        self.warrior_health = health
+        self.warrior_damage = wdamage
+
+    def getWarriorName(self):
+        return self.warrior
+
+    def getWarriorHealth(self):
+        return self.warrior_health
+
+    def getWarriorDamage(self):
+        return self.warrior_damage
+
+class Enemy:
+
+    def __init__(self, name, health, edamage):
+        self.enemy = name
+        self.enemy_health = health
+        self.enemy_damage = edamage
+
+    def getEnemyName(self):
+        return self.enemy
+
+    def getEnemyHealth(self):
+        return self.enemy_health
+
+    def getenemyDamage(self):
+        return self.enemy_damage
+
+def create_warrior():
+    name = input("Please give your warrior a name. \n")
+    health = 100
+    damage = random.randint(1,25)
+    newWarrior = Warrior(name, health, damage)
+    return newWarrior
+
+def attack_sequence(warrior, warriorHP, warriorDamage, enemy, enemyHP, enemyDamage):
+    print("Prepare for battle,", warrior + ".")
+    time.sleep(2)
+    print("A enormous troll enters the arena.\n")
+    time.sleep(2)
+
+    while True:
+        warriorDamageCrit = 0
+        for w in range(3):
+            warriorDamage = random.randint(1, 15)
+            print(warrior + " attacks " + enemy + " for " + str(warriorDamage))
+            enemyHP = enemyHP - (warriorDamage + warriorDamageCrit)
+        if enemyHP <= 0:
+            print(enemy + " has died.")
+            break
+        for e in range(3):
+            enemyDamage = random.randint(1, 17)
+            print(enemy + " attacks " + warrior + " for " + str(enemyDamage))
+            warriorHP = warriorHP - enemyDamage
+        if warriorHP <= 0:
+            print("You have died.")
+            break
+        print(enemy + " has " + str(enemyHP) + " health")
+        print("You have " + str(warriorHP) + " health")
+        time.sleep(3)
+
+newWarrior = create_warrior()
+newEnemy = Enemy("Troll", 100, random.randint(1, 25))
+warrior = newWarrior.getWarriorName()
+enemy = newEnemy.getEnemyName()
+warriorHP = newWarrior.getWarriorHealth()
+enemyHP = newEnemy.getEnemyHealth()
+warriorDamage = newWarrior.getWarriorDamage()
+enemyDamage = newEnemy.getenemyDamage()
+
+def main():
+
+    attack_sequence(warrior, warriorHP, warriorDamage, enemy, enemyHP, enemyDamage)
+
+    attackLoop = True
+
+    while attackLoop:
+        try:
+            tryagain = input("Would you like to play again? (y),(n)")
+            if tryagain == "y":
+                main()
+            elif tryagain == "n":
+                print("Thanks for playing.  Goodbye.")
+                sys.exit()
+        except: ValueError
+main()
+
+
+
+
+
+
+
+
+
+
